@@ -66,6 +66,10 @@ public class Car {
 
         System.out.println(car);
     }
+
+    public void getDataFromRemoteServer() throws Exception {
+        throw new Exception("Remote server error");
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

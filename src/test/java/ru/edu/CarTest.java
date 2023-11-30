@@ -1,23 +1,25 @@
 package ru.edu;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnJre;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.JRE;
+import org.junit.jupiter.api.condition.OS;
+import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.EmptySource;
-import org.junit.jupiter.params.provider.NullSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.*;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import ru.edu.Car;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -119,6 +121,8 @@ public class CarTest {
 
 
     @Test
+    @EnabledOnOs(OS.WINDOWS)
+    @EnabledOnJre(JRE.OTHER)
     void testGetYear() {
         assertEquals(2014, carUnit.getYear());
     }
@@ -194,4 +198,17 @@ public class CarTest {
         assertEquals(carUnit + "\r\n", consoleOutput);
     }
 
+    @ParameterizedTest
+    @DisplayName("Test demonstrates how test data could be loaded from a file")
+    @CsvFileSource(files = "src/main/resources/test-data.csv", delimiter = '|', numLinesToSkip = 1)
+    void testNumbersCsvFileSource(String input, String output) {
+        carUnit.setNumber(input);
+        assertEquals(output, carUnit.getNumber());
+    }
+
+    @Test
+    void testGetDataFromRemoteServer() {
+        Exception exception = assertThrows(Exception.class, () -> carUnit.getDataFromRemoteServer());
+        assertEquals("Remote server error", exception.getMessage());
+    }
 }
