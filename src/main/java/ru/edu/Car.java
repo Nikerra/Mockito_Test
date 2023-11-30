@@ -2,6 +2,7 @@ package ru.edu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Car {
 
@@ -59,5 +60,33 @@ public class Car {
 
     public int testInt(int a){
         return a+4;
+    }
+
+    public void testPrint(Car car) {
+
+        System.out.println(car);
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return year == car.year && Objects.equals(manufacturer, car.manufacturer) && Objects.equals(number, car.number) && Objects.equals(owner, car.owner) && Objects.equals(owners, car.owners);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(manufacturer, number, year, owner, owners);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "manufacturer='" + manufacturer + '\'' +
+                ", number='" + number + '\'' +
+                ", year=" + year +
+                ", owner='" + owner + '\'' +
+                ", owners=" + owners +
+                '}';
     }
 }
