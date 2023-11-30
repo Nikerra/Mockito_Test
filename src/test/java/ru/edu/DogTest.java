@@ -1,11 +1,18 @@
 package ru.edu;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DogTest {
-    Dog dog = new Dog("Richard", 1);
+
+    Dog dog;
+    @BeforeEach
+    void prepareData(){
+        dog = new Dog("Richard", 1);
+    }
+
     @Test
     void testGetDogName() {
 
@@ -21,9 +28,9 @@ class DogTest {
 
     @Test
     void testSetDogNameIsEmpty() {
-        Dog dog = new Dog("",2);
-        dog.setName("John");
-        assertEquals("John", dog.getName());
+        Dog dogNotName = new Dog("",2);
+        dogNotName.setName("John");
+        assertEquals("John", dogNotName.getName());
     }
 
     @Test

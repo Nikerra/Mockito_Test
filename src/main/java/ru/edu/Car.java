@@ -1,6 +1,7 @@
 package ru.edu;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Car {
 
@@ -8,7 +9,7 @@ public class Car {
     private String number;
     private int year;
     private String owner;
-    private ArrayList<String> owners = new ArrayList<String>();
+    private List<String> owners = new ArrayList<>();
 
     public Car(String manufacturer, String number, int year, String owner) {
         this.manufacturer = manufacturer;
@@ -44,7 +45,7 @@ public class Car {
         owners.add(owner);
     }
 
-    public ArrayList<String> getOwners() {
+    public List<String> getOwners() {
         return owners;
     }
 
